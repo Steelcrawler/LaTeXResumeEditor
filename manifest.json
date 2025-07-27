@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "LaTeX Resume Editor",
+  "version": "1.0.0",
+  "description": "Edit LaTeX resumes and cover letters with AI-powered suggestions",
+  
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  
+  "action": {
+    "default_title": "Open LaTeX Resume Editor"
+  },
+  
+  "side_panel": {
+    "default_path": "frontend/popup.html"
+  },
+  
+  "background": {
+    "service_worker": "backend/background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["backend/content.js"]
+    }
+  ],
+  
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+} 

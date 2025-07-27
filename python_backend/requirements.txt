@@ -1,0 +1,4 @@
+Flask==3.1.1
+Flask_Cors==5.0.0
+protobuf==6.31.1
+google-genai==1.16.0

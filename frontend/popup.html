@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Resume Editor</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <!-- Left Panel - Editor -->
+            <div class="editor-panel">
+                <div class="document-controls">
+                    <button class="doc-btn active" id="resumeBtn">Resume</button>
+                    <button class="doc-btn" id="coverLetterBtn">Cover Letter</button>
+                    <button class="doc-btn" id="settingsBtn">Settings</button>
+                </div>
+                
+                <div class="editor-container">
+                    <div id="editorContent">
+                        <div class="latex-editor-wrapper">
+                            <div class="line-numbers" id="lineNumbers"></div>
+                            <div id="latexEditor" contenteditable="true" class="latex-editor" data-placeholder="Enter your LaTeX content here..."></div>
+                        </div>
+                        
+                        <!-- Edit Navigation Controls -->
+                        <div class="edit-navigation" id="editNavigation" style="display: none;">
+                            <div class="edit-counter">
+                                <span id="editCounter">Edit 1 of 5</span>
+                                <small class="edit-shortcuts" title="Keyboard shortcuts">
+                                    Ctrl+← → ← | Ctrl+Enter ✓ | Ctrl+Backspace ✗ | Esc Finish
+                                </small>
+                            </div>
+                            <div class="edit-controls">
+                                <button class="edit-nav-btn" id="prevEditBtn" title="Previous Edit (Ctrl+←)">←</button>
+                                <button class="edit-action-btn approve" id="approveEditBtn" title="Approve Edit (Ctrl+Enter)">✓</button>
+                                <button class="edit-action-btn reject" id="rejectEditBtn" title="Reject Edit (Ctrl+Backspace)">✗</button>
+                                <button class="edit-nav-btn" id="nextEditBtn" title="Next Edit (Ctrl+→)">→</button>
+                            </div>
+                            <button class="edit-finish-btn" id="finishEditsBtn" title="Finish Review (Esc)">Finish Review</button>
+                        </div>
+                    </div>
+                    
+                    <div id="settingsContent" style="display: none;">
+                        <div class="setting-group">
+                            <label for="apiKey">Gemini API Key:</label>
+                            <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+                            <button class="action-btn primary" id="saveApiKey">Save API Key</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Keywords Section -->
+                <div class="keywords-section" id="keywordsSection" style="display: none;">
+                    <div class="keywords-header">
+                        <h4>Extracted Keywords</h4>
+                        <button class="keywords-close-btn" id="keywordsCloseBtn" title="Close keywords">✕</button>
+                    </div>
+                    <div class="keywords-container" id="keywordsContainer">
+                        <!-- Keywords pills will be inserted here -->
+                    </div>
+                    <div class="keywords-actions" id="keywordsActions" style="display: none;">
+                        <button class="action-btn primary" id="suggestEditsBtn">Suggest Edits with Selected Keywords</button>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn primary" id="saveBtn">Save</button>
+                    <button class="action-btn secondary" id="saveOriginalBtn">Save As Original</button>
+                    <button class="action-btn secondary" id="revertBtn" disabled>Revert to Original</button>
+                    <button class="action-btn secondary" id="extractKeywordsBtn">Extract Keywords</button>
+                    <button class="action-btn secondary" id="renderBtn">Render PDF</button>
+                    <button class="action-btn secondary" id="uploadBtn" disabled>Upload to Page</button>
+                </div>
+            </div>
+            
+            <!-- Right Panel - PDF Viewer -->
+            <div class="pdf-panel">
+                <div class="pdf-container">
+                    <div id="pdfViewer" class="pdf-viewer">
+                        <div class="pdf-placeholder">
+                            <div class="placeholder-icon">📄</div>
+                            <p>Click "Render PDF" to generate a preview</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html> 
