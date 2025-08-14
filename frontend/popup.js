@@ -525,7 +525,8 @@ class LaTeXResumeEditor {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    job_posting: jobContent
+                    job_posting: jobContent,
+                    api_key: this.apiKey // Send API key from settings
                 })
             });
 
@@ -635,7 +636,8 @@ class LaTeXResumeEditor {
                 body: JSON.stringify({
                     document_content: currentContent,
                     selected_keywords: selectedKeywords,
-                    document_type: this.currentDocument
+                    document_type: this.currentDocument,
+                    api_key: this.apiKey // Send API key from settings
                 })
             });
 

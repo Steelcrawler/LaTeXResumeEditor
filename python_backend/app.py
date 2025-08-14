@@ -155,18 +155,19 @@ def extract_keywords():
         if not job_posting.strip():
             return jsonify({'error': 'Job posting content cannot be empty'}), 400
         
-        # Get AI analyzer
-        analyzer = get_ai_analyzer()
-        
+        # Get API key from request, fallback to env
+        api_key = data.get('api_key') or GEMINI_API_KEY
+        analyzer = create_ai_analyzer(api_key)
+
         # Extract keywords using AI
         keywords = analyzer.extract_job_keywords(job_posting)
-        
+
         # Convert to list if it's a dictionary (old format)
         if isinstance(keywords, dict):
             keywords_list = list(keywords.keys())
         else:
             keywords_list = keywords if isinstance(keywords, list) else []
-        
+
         return jsonify({
             'success': True,
             'keywords': keywords_list,
@@ -206,20 +207,21 @@ def suggest_resume_edits():
         if not selected_keywords:
             return jsonify({'error': 'No keywords selected'}), 400
         
-        # Get AI analyzer
-        analyzer = get_ai_analyzer()
-        
+        # Get API key from request, fallback to env
+        api_key = data.get('api_key') or GEMINI_API_KEY
+        analyzer = create_ai_analyzer(api_key)
+
         # Generate suggestions using AI
         print(f"[DEBUG] Generating suggestions for keywords: {selected_keywords}")
         suggestions = analyzer.generate_resume_suggestions(document_content, selected_keywords)
-        
+
         print(f"[DEBUG] Raw suggestions from AI: {suggestions}")
         suggestion_list = suggestions.get('suggestions', [])
         print(f"[DEBUG] Suggestion list length: {len(suggestion_list)}")
-        
+
         for i, suggestion in enumerate(suggestion_list):
             print(f"[DEBUG] Suggestion {i+1}: {suggestion}")
-        
+
         return jsonify({
             'success': True,
             'suggestions': suggestion_list,
